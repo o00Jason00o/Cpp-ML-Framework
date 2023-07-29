@@ -1,0 +1,54 @@
+MLFramework/
+│
+├── include/               # Header files
+│   ├── dataset/           # Data handling classes and utilities
+│   │   ├── DataLoader.hpp
+│   │   └── Dataset.hpp
+│   │
+│   ├── algorithms/        # Algorithm implementations
+│   │   ├── KNN.hpp
+│   │   ├── (FutureAlgo1).hpp
+│   │   └── (FutureAlgo2).hpp
+│   │
+│   ├── utils/             # Utility functions and classes
+│   │   ├── Normalizer.hpp
+│   │   ├── DistanceMetrics.hpp
+│   │   └── Splitter.hpp
+│   │
+│   └── evaluation/        # Evaluation metrics and tools
+│       ├── Metrics.hpp
+│       └── CrossValidation.hpp
+│
+├── src/                  # Source files corresponding to header files
+│   ├── dataset/
+│   │   ├── DataLoader.cpp
+│   │   └── Dataset.cpp
+│   │
+│   ├── algorithms/
+│   │   ├── KNN.cpp
+│   │   ├── (FutureAlgo1).cpp
+│   │   └── (FutureAlgo2).cpp
+│   │
+│   ├── utils/
+│   │   ├── Normalizer.cpp
+│   │   ├── DistanceMetrics.cpp
+│   │   └── Splitter.cpp
+│   │
+│   └── evaluation/
+│       ├── Metrics.cpp
+│       └── CrossValidation.cpp
+│
+├── tests/                # Unit tests for each module
+│   ├── dataset/
+│   ├── algorithms/
+│   ├── utils/
+│   └── evaluation/
+│
+├── docs/                 # Documentation for your framework
+│
+├── examples/             # Example projects or applications using your framework
+│   └── KNNExample.cpp
+│
+├── Makefile              # Makefile for building the framework and examples
+│
+└── README.md             # Overview, usage, and other information about your framework
