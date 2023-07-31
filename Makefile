@@ -1,12 +1,26 @@
-all: run
-my_program: main.o utility.o
-    g++ -o $@ $^
+# Variables
+CXX = g++
+CXXFLAGS = -Wall -Wextra -Iinclude
+SRCS = src/dataset/Dataset.cpp src/dataset/DataLoader.cpp main.cpp
+OBJS = $(SRCS:.cpp=.o)
+TARGET = ml_app
 
-main.o: main.cpp
-    g++ -c $<
+# Targets
+all: $(TARGET)
 
-utility.o: utility.cpp
-    g++ -c $<
+$(TARGET): $(OBJS)
+	$(CXX) $(OBJS) -o $(TARGET)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-    rm -f *.o run
+	del /Q /F $(subst /,\,$(OBJS)) $(TARGET).exe
+
+run: $(TARGET)
+	./$(TARGET) sample_data.csv
+
+test: $(TARGET)
+	# Insert command to run your test cases here
+
+.PHONY: all clean run test

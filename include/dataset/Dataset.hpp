@@ -15,7 +15,8 @@ public:
 
     // Utility functions
     size_t size() const; // Returns the number of data points
-    
+
+    void print() const;
 
 private:
     

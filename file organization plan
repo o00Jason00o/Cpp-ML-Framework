@@ -49,6 +49,10 @@ MLFramework/
 ├── examples/             # Example projects or applications using your framework
 │   └── KNNExample.cpp
 │
+├── main.cpp              # Main application file
+│
+├── sample_data.csv       # Sample data for testing
+│
 ├── Makefile              # Makefile for building the framework and examples
 │
 └── README.md             # Overview, usage, and other information about your framework
