@@ -9,6 +9,7 @@ class Dataset {
 public:
     Dataset();
 
+    std::vector<std::string> headers;
     std::vector<std::vector<std::string>> features;
     std::vector<int> labels; 
 
