@@ -4,8 +4,6 @@
 #include <string>
 #include "dataset/Dataset.hpp"
 
-class Dataset;
-
 class KNN {
 
 public:
