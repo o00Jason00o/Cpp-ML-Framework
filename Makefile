@@ -1,7 +1,9 @@
 # Variables
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Iinclude
-SRCS = src/dataset/Dataset.cpp src/dataset/DataLoader.cpp main.cpp
+
+# Automatically detect source files
+SRCS = $(wildcard src/dataset/*.cpp src/algorithms/*.cpp src/utils/*.cpp src/evaluation/*.cpp main.cpp)
 OBJS = $(SRCS:.cpp=.o)
 TARGET = ml_app
 
@@ -11,6 +13,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(OBJS) -o $(TARGET)
 
+# General rule for compiling object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
