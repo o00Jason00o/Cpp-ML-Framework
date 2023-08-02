@@ -1,13 +1,12 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "DefaultConfig",
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include"
             ],
             "defines": [],
-            "compilerPath": "path_to_g++_compiler",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
