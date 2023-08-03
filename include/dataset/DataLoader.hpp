@@ -13,6 +13,8 @@ public:
 
     Dataset load();
 
+    Dataset load(bool contains_headers, int labels_index);
+
 private:
     std::string filePath;
     
