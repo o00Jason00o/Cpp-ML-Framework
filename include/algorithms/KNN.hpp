@@ -8,7 +8,7 @@ class KNN {
 
 public:
     explicit KNN(int neighbors = 3);
-    void train();
+    void train(const Dataset& data);
     std::vector<double> weights();
 
     std::vector<int> predict(const Dataset& data);
