@@ -51,10 +51,23 @@ void Dataset::shuffle_features() {
     // Use a random device to seed the random number generator
     std::random_device rd;
     std::mt19937 g(rd());
+
+    // Create a vector of pairs from features and labels
+    std::vector<std::pair<vector<string>, string>> combined;
+    for (size_t i = 0; i < features.size(); ++i) {
+        combined.push_back({features[i], labels[i]});
+    }
     
-    // Shuffle the features vector
-    std::shuffle(this->features.begin(), this->features.end(), g);
+    // Shuffle the combined vector
+    std::shuffle(combined.begin(), combined.end(), g);
+
+    // Split the shuffled combined vector back into features and labels
+    for (size_t i = 0; i < combined.size(); ++i) {
+        features[i] = combined[i].first;
+        labels[i] = combined[i].second;
+    }
 }
+
 
 
 //structure written by ChatGPT
