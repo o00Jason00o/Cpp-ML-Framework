@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <random>
+#include <numeric>
 using namespace std;
 
 Dataset::Dataset() {}
@@ -52,31 +53,32 @@ void Dataset::shuffle_features() {
     std::random_device rd;
     std::mt19937 g(rd());
 
-    // Create a vector of pairs from features and labels
-    std::vector<std::pair<vector<string>, string>> combined;
-    for (size_t i = 0; i < features.size(); ++i) {
-        combined.push_back({features[i], labels[i]});
-    }
+    // Create a vector of indices
+    std::vector<size_t> indices(features.size());
+    std::iota(indices.begin(), indices.end(), 0);  // fill with 0, 1, ..., n-1
+
+    // Shuffle the indices
+    std::shuffle(indices.begin(), indices.end(), g);
+
+    // Rearrange the features and labels based on shuffled indices
+    vector<vector<string>> shuffled_features(features.size());
+    vector<string> shuffled_labels(labels.size());
     
-    // Shuffle the combined vector
-    std::shuffle(combined.begin(), combined.end(), g);
-
-    // Split the shuffled combined vector back into features and labels
-    for (size_t i = 0; i < combined.size(); ++i) {
-        features[i] = combined[i].first;
-        labels[i] = combined[i].second;
+    for (size_t i = 0; i < indices.size(); i++) {
+        shuffled_features[i] = features[indices[i]];
+        shuffled_labels[i] = labels[indices[i]];
     }
+
+    features = std::move(shuffled_features);
+    labels = std::move(shuffled_labels);
 }
-
-
 
 //structure written by ChatGPT
 void Dataset::print() const {
     // Width calculations
     int labelMaxWidth = 0;
     if (labels_index != -1) {
-    labelMaxWidth = std::max_element(labels.begin(), labels.end(), 
-                                     [](const string& a, const string& b) { return a.size() < b.size(); })->size();
+        labelMaxWidth = std::max(labelMaxWidth, static_cast<int>(std::string("Labels").size()));
     }
 
     std::vector<int> featureMaxWidths(features[0].size(), 0);
@@ -93,7 +95,7 @@ void Dataset::print() const {
 
     // Printing headers
     if (labels_index != -1) {
-        std::cout << std::left << std::setw(labelMaxWidth) << "Labels" << " ";
+        std::cout << std::left << std::setw(labelMaxWidth + 1) << "Labels";
     }
 
     if (contains_headers) {
@@ -106,7 +108,7 @@ void Dataset::print() const {
     // Printing data
     for (size_t i = 0; i < features.size(); ++i) {
         if (labels_index != -1) {
-            std::cout << std::left << std::setw(labelMaxWidth) << labels[i] << " ";
+            std::cout << std::left << std::setw(labelMaxWidth + 1) << labels[i];
         }
         
         for (size_t j = 0; j < features[i].size(); ++j) {
