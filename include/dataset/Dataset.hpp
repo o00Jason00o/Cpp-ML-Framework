@@ -14,7 +14,7 @@ public:
 
     vector<string> headers;
     vector<vector<string>> features;
-    vector<int> labels;
+    vector<string> labels;
 
     void set_train(double p);
     double get_train_value();

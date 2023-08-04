@@ -62,7 +62,8 @@ void Dataset::print() const {
     // Width calculations
     int labelMaxWidth = 0;
     if (labels_index != -1) {
-        labelMaxWidth = std::max(static_cast<int>(std::to_string(*std::max_element(labels.begin(), labels.end())).size()), static_cast<int>(strlen("Labels")));
+    labelMaxWidth = std::max_element(labels.begin(), labels.end(), 
+                                     [](const string& a, const string& b) { return a.size() < b.size(); })->size();
     }
 
     std::vector<int> featureMaxWidths(features[0].size(), 0);
@@ -111,7 +112,7 @@ void Dataset::dumb_print() const {
     cout << endl;
 
     cout << "labels: " << endl; 
-    for (int box : this->labels) {
+    for (string box : this->labels) {
         cout << box << " ";
     }
     cout << endl;

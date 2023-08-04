@@ -50,7 +50,7 @@ Dataset DataLoader::load(bool contains_headers, int labels_index) {
         int col_index = 0;
         while (getline(ss, value, ',')) {
             if (col_index == labels_index) {
-                dataset.labels.push_back(std::stoi(value));
+                dataset.labels.push_back(value);
             } else {
                 row.push_back(value);
             }
