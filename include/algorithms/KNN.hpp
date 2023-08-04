@@ -8,17 +8,23 @@ class KNN {
 
 public:
     explicit KNN(int neighbors = 3);
-    void train(const Dataset& data);
-    std::vector<double> weights();
 
-    std::vector<int> predict(const Dataset& data);
+
     void setN(int n);
     int getN();
 
     void setDataset(const Dataset& data);
     Dataset getDataset() const;
 
+    //assumes the values in the rows can be converted to double
+    double calculate_distance(vector<string> test, vector<string> train);
+
+    string predict_by_majority(const vector<string>& instance);
+    string predict_by_average(const vector<string>& instance);
+
+    void fit(const Dataset& data);
+
 private:
-    int neighbors;
+    size_t neighbors;
     Dataset dataset;
 };
