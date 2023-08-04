@@ -50,6 +50,11 @@
         "iomanip": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "queue": "cpp",
+        "deque": "cpp",
+        "map": "cpp",
+        "xtree": "cpp",
+        "numeric": "cpp"
     }
 }
