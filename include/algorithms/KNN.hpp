@@ -23,6 +23,10 @@ public:
     string predict_by_average(const vector<string>& instance);
 
     void fit(const Dataset& data);
+    double score(const std::vector<std::string>& true_labels, const std::vector<std::string>& pred_labels);
+
+    vector<string> get_predictions(const vector<vector<string>>& test_features);
+    double evaluate();
 
 private:
     size_t neighbors;

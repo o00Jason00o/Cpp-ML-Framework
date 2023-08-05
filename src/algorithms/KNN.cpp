@@ -87,6 +87,7 @@ string KNN::predict_by_majority(const vector<string>& instance) {
     return most_common_label;
 }
 
+//isn't implemented yet in evaluate and score
 string KNN::predict_by_average(const vector<string>& instance) {
     // Store all distances and their associated labels
     vector<pair<double, string>> distances_with_labels;
@@ -107,4 +108,43 @@ string KNN::predict_by_average(const vector<string>& instance) {
     }
 
     return to_string(sum / neighbors);
+}
+
+
+
+double KNN::score(const vector<string>& true_labels, const vector<string>& pred_labels) {
+    if(true_labels.size() != pred_labels.size())
+        throw runtime_error("Inconsistent label size");
+
+    int correct_count = 0;
+    for (size_t i = 0; i < true_labels.size(); ++i) {
+        if(true_labels[i] == pred_labels[i])
+            correct_count++;
+    }
+
+    return static_cast<double>(correct_count) / true_labels.size();
+}
+
+vector<string> KNN::get_predictions(const vector<vector<string>>& test_features) {
+    vector<string> predictions;
+
+    for(vector<string> row : test_features) {
+        predictions.push_back(predict_by_majority(row));
+    }
+
+    return predictions;
+}
+
+double KNN::evaluate() {
+
+    pair<vector<vector<string>>, vector<string>> test_data = dataset.get_test();
+    vector<string> predictions;
+
+    for(vector<string> row : test_data.first) {
+        predictions.push_back(predict_by_majority(row));
+    }
+
+    double test_score = score(test_data.second, predictions);
+
+    return test_score;
 }
