@@ -27,29 +27,48 @@ double Dataset::get_train_value() {
     return train_percent;
 }
 
+void Dataset::remove_column(size_t columnIndex) {
+    if (columnIndex >= features[0].size()) {
+        throw std::out_of_range("Invalid column index.");
+    }
 
-//Utility functions
+    for (auto& row : features) {
+        row.erase(row.begin() + columnIndex);
+    }
 
-vector<vector<string>> Dataset::get_train() {
+    if (contains_headers && columnIndex < headers.size()) {
+        headers.erase(headers.begin() + columnIndex);
+    }
+
+    if (columnIndex == static_cast<size_t>(labels_index)) {
+        labels.clear();
+        labels_index = -1;
+    } else if (columnIndex < static_cast<size_t>(labels_index)) {
+        labels_index--;
+    }
+}
+
+pair<vector<vector<string>>, vector<string>> Dataset::get_train() {
     return get_train(this->train_percent);
 }
 
-vector<vector<string>> Dataset::get_train(double percent) {
+pair<vector<vector<string>>, vector<string>> Dataset::get_train(double percent) {
     size_t splitIdx = static_cast<size_t>(percent * this->features.size());
-    return vector<vector<string>>(this->features.begin(), this->features.begin() + splitIdx);
+    return {vector<vector<string>>(this->features.begin(), this->features.begin() + splitIdx),
+            vector<string>(this->labels.begin(), this->labels.begin() + splitIdx)};
 }
 
-vector<vector<string>> Dataset::get_test() {
+pair<vector<vector<string>>, vector<string>> Dataset::get_test() {
     return get_test(1 - this->train_percent);
 }
 
-vector<vector<string>> Dataset::get_test(double percent) {
+pair<vector<vector<string>>, vector<string>> Dataset::get_test(double percent) {
     size_t splitIdx = this->features.size() - static_cast<size_t>(percent * this->features.size());
-    return vector<vector<string>>(this->features.begin() + splitIdx, this->features.end());
+    return {vector<vector<string>>(this->features.begin() + splitIdx, this->features.end()),
+            vector<string>(this->labels.begin() + splitIdx, this->labels.end())};
 }
 
 void Dataset::shuffle_features() {
-    // Use a random device to seed the random number generator
     std::random_device rd;
     std::mt19937 g(rd());
 

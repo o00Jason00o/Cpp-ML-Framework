@@ -16,6 +16,8 @@ public:
     vector<vector<string>> features;
     vector<string> labels;
 
+    void remove_column(size_t columnIndex);
+
     void set_train(double p);
     double get_train_value();
 
@@ -24,12 +26,10 @@ public:
 
     void shuffle_features();
     
-    vector<vector<string>> get_train(); // Use the train_percent of this object
-    vector<vector<string>> get_train(double percent); // Use the given percent, get the x 
-                                                      //percent of data counting from the top
-
-    vector<vector<string>> get_test();
-    vector<vector<string>> get_test(double percent); //get the x percent of data counting from the bottom
+    pair<vector<vector<string>>, vector<string>> get_train();
+    pair<vector<vector<string>>, vector<string>> get_train(double percent);
+    pair<vector<vector<string>>, vector<string>> get_test();
+    pair<vector<vector<string>>, vector<string>> get_test(double percent);
 
     void print() const;
     void dumb_print() const;
