@@ -16,15 +16,15 @@ public:
     vector<vector<string>> features;
     vector<string> labels;
 
-    void remove_column(size_t columnIndex);
-
     void set_train(double p);
     double get_train_value();
 
     // Utility functions
     size_t size() const; // Returns the number of data points
 
+    void remove_column(size_t column_index);
     void shuffle_features();
+    void normalize_column(size_t column_index);
     
     pair<vector<vector<string>>, vector<string>> get_train();
     pair<vector<vector<string>>, vector<string>> get_train(double percent);
