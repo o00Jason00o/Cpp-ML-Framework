@@ -12,11 +12,11 @@ using namespace std;
 
 KNN::KNN(int neighbors) : neighbors(neighbors) {}; 
 
-void KNN::setDataset(const Dataset& data) {
+void KNN::set_dataset(const Dataset& data) {
     this->dataset = data;
 }
 
-Dataset KNN::getDataset() const {
+Dataset KNN::get_dataset() const {
     return this->dataset;
 }
 
@@ -52,7 +52,7 @@ double KNN::calculate_distance(vector<string> row1, vector<string> row2) {
 }
 
 void KNN::fit(const Dataset& data) {
-    setDataset(data);
+    set_dataset(data);
 }
 
 string KNN::predict_by_majority(const vector<string>& instance) {

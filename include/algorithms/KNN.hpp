@@ -13,8 +13,8 @@ public:
     void setN(int n);
     int getN();
 
-    void setDataset(const Dataset& data);
-    Dataset getDataset() const;
+    void set_dataset(const Dataset& data);
+    Dataset get_dataset() const;
 
     //assumes the values in the rows can be converted to double
     double calculate_distance(vector<string> test, vector<string> train);
