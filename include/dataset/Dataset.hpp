@@ -22,14 +22,16 @@ public:
     // Utility functions
     size_t size() const; // Returns the number of data points
 
+    vector<string> get_column(size_t column_index) const;
     void remove_column(size_t column_index);
     void shuffle_features();
     void normalize_column(size_t column_index);
     
-    pair<vector<vector<string>>, vector<string>> get_train();
-    pair<vector<vector<string>>, vector<string>> get_train(double percent);
-    pair<vector<vector<string>>, vector<string>> get_test();
-    pair<vector<vector<string>>, vector<string>> get_test(double percent);
+    pair<vector<vector<string>>, vector<string>> get_train() const;
+    pair<vector<vector<string>>, vector<string>> get_train(double percent) const;
+    pair<vector<vector<string>>, vector<string>> get_test() const;
+    pair<vector<vector<string>>, vector<string>> get_test(double percent) const;
+
 
     void print() const;
     void dumb_print() const;

@@ -27,21 +27,21 @@ double Dataset::get_train_value() {
     return train_percent;
 }
 
-pair<vector<vector<string>>, vector<string>> Dataset::get_train() {
+pair<vector<vector<string>>, vector<string>> Dataset::get_train() const{
     return get_train(this->train_percent);
 }
 
-pair<vector<vector<string>>, vector<string>> Dataset::get_train(double percent) {
+pair<vector<vector<string>>, vector<string>> Dataset::get_train(double percent) const{
     size_t split_idx = static_cast<size_t>(percent * this->features.size());
     return {vector<vector<string>>(this->features.begin(), this->features.begin() + split_idx),
             vector<string>(this->labels.begin(), this->labels.begin() + split_idx)};
 }
 
-pair<vector<vector<string>>, vector<string>> Dataset::get_test() {
+pair<vector<vector<string>>, vector<string>> Dataset::get_test() const{
     return get_test(1 - this->train_percent);
 }
 
-pair<vector<vector<string>>, vector<string>> Dataset::get_test(double percent) {
+pair<vector<vector<string>>, vector<string>> Dataset::get_test(double percent) const{
     size_t split_idx = this->features.size() - static_cast<size_t>(percent * this->features.size());
     return {vector<vector<string>>(this->features.begin() + split_idx, this->features.end()),
             vector<string>(this->labels.begin() + split_idx, this->labels.end())};
@@ -71,6 +71,20 @@ void Dataset::shuffle_features() {
     features = std::move(shuffled_features);
     labels = std::move(shuffled_labels);
 }
+
+vector<string> Dataset::get_column(size_t column_index) const{
+    if (column_index >= features[0].size()) {
+        throw out_of_range("Invalid column index.");
+    }
+
+    vector<string> column;
+    for (const auto& row : features) {
+        column.push_back(row[column_index]);
+    }
+
+    return column;
+}
+
 
 void Dataset::remove_column(size_t column_index) {
     if (column_index >= features[0].size()) {
