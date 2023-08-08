@@ -51,7 +51,8 @@ double KNN::calculate_distance(vector<string> row1, vector<string> row2) {
     return sqrt(error);
 }
 
-void KNN::fit(const Dataset& data) {
+void KNN::fit(const Dataset& data, int n) {
+    this->setN(n);
     set_dataset(data);
 }
 
@@ -109,8 +110,6 @@ string KNN::predict_by_average(const vector<string>& instance) {
 
     return to_string(sum / neighbors);
 }
-
-
 
 double KNN::score(const vector<string>& true_labels, const vector<string>& pred_labels) {
     if(true_labels.size() != pred_labels.size())
